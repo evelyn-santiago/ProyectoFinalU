@@ -1,10 +1,11 @@
-import Inicio from './src/pages/Inicio';
 
+import Home from './src/pages/Home';
+   
 
 
  function App() {
   return (
-    <Inicio/>
+    <Home/>
   ); 
 
 }

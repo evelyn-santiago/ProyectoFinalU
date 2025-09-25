@@ -1,172 +1,55 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../pages/Home'; // Importa Home
+import React, { useState } from "react";
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-function Inicio({ navigation }) {
+export default function Inicio({ navigation }) {
+  const [modo, setModo] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Bienvenido a Mi App</Text>
-      <Text style={styles.subtitulo}>Explora y disfruta nuestra plataforma</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: modo ? "#4b2e2e" : "#f8f3f0" }]}>
+      
+      {/* Botón ON/OFF */}
+      <TouchableOpacity
+        style={[styles.switchButton, { backgroundColor: modo ? "#fff" : "#4b2e2e" }]}
+        onPress={() => setModo(!modo)}
+      >
+        <Text style={[styles.switchText, { color: modo ? "#4b2e2e" : "#fff" }]}>
+          {modo ? "Modo Oscuro" : "Modo Claro"}
+        </Text>
+      </TouchableOpacity>
+
+      {/* Imagen */}
+      <Image
+        source={{ uri: "https://i.ibb.co/mcMdxst/cafe-banner.jpg" }}
+        style={styles.image}
+      />
+
+      {/* Títulos */}
+      <Text style={[styles.titulo, { color: modo ? "#fff" : "#4b2e2e" }]}>
+        Bienvenido a la Cafetería
+      </Text>
+      <Text style={[styles.subtitulo, { color: modo ? "#e6d5c3" : "#5a3e36" }]}>
+        Explora y disfruta nuestros sabores
+      </Text>
 
       {/* Botón para ir a Home */}
-      <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Home')} >
-        <Text style={styles.textoBoton}>Ir a Home</Text>
+      <TouchableOpacity
+        style={styles.boton}
+        onPress={() => navigation.navigate("Home")} // Aquí va directo a Home
+      >
+        <Text style={styles.textoBoton}>Entrar</Text>
       </TouchableOpacity>
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Inicio">
-        <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }}/>
-        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e0f7ff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  titulo: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#0077b6',
-    marginBottom: 10,
-  },
-  subtitulo: {
-    fontSize: 18,
-    color: '#023e8a',
-    marginBottom: 50,
-    textAlign: 'center',
-  },
-  boton: {
-    backgroundColor: '#90e0ef',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 25,
-  },
-  textoBoton: {
-    color: '#023e8a',
-    fontSize: 16,
-    fontWeight: '600',
-  },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: 20 },
+  switchButton: { position: "absolute", top: 40, right: 20, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 20 },
+  switchText: { fontSize: 14, fontWeight: "600" },
+  image: { width: "100%", height: 200, borderRadius: 20, marginBottom: 30 },
+  titulo: { fontSize: 28, fontWeight: "bold", marginBottom: 10 },
+  subtitulo: { fontSize: 16, textAlign: "center", marginBottom: 40 },
+  boton: { backgroundColor: "#4b2e2e", paddingVertical: 14, paddingHorizontal: 40, borderRadius: 25, shadowColor: "#000", shadowOpacity: 0.2, shadowRadius: 5, elevation: 4 },
+  textoBoton: { color: "#fff", fontSize: 16, fontWeight: "600" },
 });
-
-
-// import React from 'react';
-// import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import Registro from '../componentes/Registro';
-
-
-// function Inicio({ navigation }) {
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.titulo}>Bienvenido a Mi App</Text>
-//       <Text style={styles.subtitulo}>Explora y disfruta nuestra plataforma</Text>
-//       <View style={styles.menuInferior}>
-//         <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Login')}>
-//           <Text style={styles.textoBoton}>Iniciar Sesión</Text>
-//         </TouchableOpacity>
-//         <TouchableOpacity
-//           style={[styles.boton, styles.botonRegistro]}
-//           onPress={() => navigation.navigate('RegistroE')} // <- coincide con el name del Stack.Screen
-//         >
-//           <Text style={styles.textoBoton}>Registrarte</Text>
-//         </TouchableOpacity>
-//       </View>
-//     </View>
-//   );
-// }
-
-// function Login() {
-//   return (
-//     <View style={styles.pantalla}>
-//       <Text>Pantalla de Login</Text>
-//     </View>
-//   );
-// }
-
-
-// function RegistroE() {
-//   return (
-//     <View style={styles.pantalla}>
-//       <Text>Pantalla de Registro Local</Text>
-//     </View>
-//   );
-// }
-
-// const Stack = createNativeStackNavigator();
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Inicio">
-//         <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }}/>
-//         <Stack.Screen name="Login" component={Login} />
-//         <Stack.Screen name="RegistroE" component={Registro} /> 
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#e0f7ff',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     paddingHorizontal: 20,
-//   },
-//   titulo: {
-//     fontSize: 32,
-//     fontWeight: 'bold',
-//     color: '#0077b6',
-//     marginBottom: 10,
-//   },
-//   subtitulo: {
-//     fontSize: 18,
-//     color: '#023e8a',
-//     marginBottom: 50,
-//     textAlign: 'center',
-//   },
-//   menuInferior: {
-//     position: 'absolute',
-//     bottom: 30,
-//     flexDirection: 'row',
-//     width: '100%',
-//     justifyContent: 'space-around',
-//   },
-//   boton: {
-//     backgroundColor: '#90e0ef',
-//     paddingVertical: 12,
-//     paddingHorizontal: 30,
-//     borderRadius: 25,
-//   },
-//   botonRegistro: {
-//     backgroundColor: '#caf0f8',
-//   },
-//   textoBoton: {
-//     color: '#023e8a',
-//     fontSize: 16,
-//     fontWeight: '600',
-//   },
-//   pantalla: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
